@@ -1,0 +1,3 @@
+[submodule "selectivesearch_Detect"]
+	path = selectivesearch_Detect
+	url = git@github.com:coco3384/selectivesearch_Detect.git
