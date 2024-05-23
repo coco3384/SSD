@@ -28,7 +28,7 @@ def define_max_region_size(annotations, scale=10):
     return max_region_size
 
 
-def main(img, annotations, segment_resize_scale=0.4, ss_scale=500, default_sub_region_size=640, intersect_score_threshold=0.7, border=10, vis=False, bbox_size_visbility=False):
+def focus(img, annotations, segment_resize_scale=0.4, ss_scale=500, default_sub_region_size=640, intersect_score_threshold=0.7, border=10, vis=False, bbox_size_visbility=False):
     # img           : path/to/img
     # annotation    : path/to/annotation
 
@@ -220,7 +220,7 @@ if __name__ == '__main__':
     border = 10
     intersect_score_threshold = 0.7
 
-    gt_coverage, sub_regions, asosr_score, time_cost, score_of_sub_regions = main(img, annotations,
+    gt_coverage, sub_regions, asosr_score, time_cost, score_of_sub_regions = focus(img, annotations,
         segment_resize_scale=segment_resize_scale,
         ss_scale=ss_scale,
         default_sub_region_size=prefered_size,

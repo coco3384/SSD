@@ -30,7 +30,7 @@ def main():
     img_list.sort()
     annotation_list.sort()
 
-    for img, annotation in zip(img_list, annotation_list):
+    for img, annotation in tqdm(zip(img_list, annotation_list)):
         img_shape = cv2.imread(img).shape[:2]
 
         if img_shape[1] <= img_size_threshold[0]:
