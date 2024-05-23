@@ -16,7 +16,10 @@ class VisDroneAnnotation():
 
     def __init__(self, annotation):
         if isinstance(annotation, str):
-            bbox_left, bbox_top, bbox_width, bbox_height, score, category, truncation, occlusion = annotation.rstrip().split(',')
+            try:
+                bbox_left, bbox_top, bbox_width, bbox_height, score, category, truncation, occlusion = annotation.rstrip().split(',')
+            except:
+                bbox_left, bbox_top, bbox_width, bbox_height, score, category, truncation, occlusion = annotation.rstrip().split(',')[:-1]
         else:
             bbox_left, bbox_top, bbox_width, bbox_height, score, category, truncation, occlusion = annotation
             
