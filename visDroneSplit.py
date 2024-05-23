@@ -48,7 +48,5 @@ def main():
     create_dataset(name='VisDrone2019-DET-train-large', data=large_data)
 
 
-
-
 if __name__ == '__main__':
     main()
