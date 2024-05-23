@@ -6,6 +6,27 @@ import matplotlib.pyplot as plt
 import tqdm
 
 
+def bbox_nsize(img_list, annotation_list):
+    widths = []
+    heights = []
+    for img, annotation in tqdm.tqdm(zip(img_list, annotation_list)):
+        data = VisDrone(img, annotation)
+        img = data.get_img()
+        annotations = data.get_annotations()
+        for annotation in annotations:
+            img_xy = (img.shape[1], img.shape[0])
+            nbbox_width = annotation.bbox_width / img_xy[0]
+            nbbox_height = annotation.bbox_height / img_xy[0]
+            widths.append(nbbox_width)
+            heights.append(nbbox_height)
+    
+    plt.scatter(widths, heights)
+    plt.xlim(0, 1)
+    plt.ylim(0, 1)
+    plt.show()
+        
+
+
 def distribute_bbox(img_list, annotation_list):
     map = np.zeros((100, 100))
     for img, annotation in tqdm.tqdm(zip(img_list, annotation_list)):
@@ -31,7 +52,7 @@ def distribute_bbox(img_list, annotation_list):
 
 def distribute_bbox_center(img_list, annotation_list):
     map = np.zeros((100, 100))
-    for img, annotation in tqdm.tdqm(zip(img_list, annotation_list)):
+    for img, annotation in tqdm.tqdm(zip(img_list, annotation_list)):
         data = VisDrone(img, annotation)
         img = data.get_img()
         annotations = data.get_annotations()
@@ -51,11 +72,13 @@ def distribute_bbox_center(img_list, annotation_list):
 
 
 def main():
-    img_list = glob.glob(os.path.join('VisDrone2019-DET-train', 'images', '*.jpg'))
-    annotation_list = glob.glob(os.path.join('VisDrone2019-DET-train', 'annotations', '*.txt'))
+    img_list = glob.glob(os.path.join('VisDrone2019-DET-train-medium', 'images', '*.jpg'))
+    annotation_list = glob.glob(os.path.join('VisDrone2019-DET-train-medium', 'annotations', '*.txt'))
     img_list.sort()
     annotation_list.sort()
     distribute_bbox(img_list, annotation_list)
+    distribute_bbox_center(img_list, annotation_list)
+    bbox_nsize(img_list, annotation_list)
 
 
 
