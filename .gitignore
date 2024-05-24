@@ -4,5 +4,11 @@ VisDrone2019-DET-val/
 VisDrone2019-DET-train-small/
 VisDrone2019-DET-train-medium/
 VisDrone2019-DET-train-large/
+VisDrone2019-DET-val-large/
+VisDrone2019-DET-val-medium/
+VisDrone2019-DET-val-small/
+VisDrone2019-DET-test-large/
+VisDrone2019-DET-test-medium/
+VisDrone2019-DET-test-small/
 sub_annotations(large)/
 sub_images(large)/
