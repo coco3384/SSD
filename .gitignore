@@ -10,5 +10,6 @@ VisDrone2019-DET-val-small/
 VisDrone2019-DET-test-large/
 VisDrone2019-DET-test-medium/
 VisDrone2019-DET-test-small/
+dataset/
 sub_annotations(large)/
 sub_images(large)/
