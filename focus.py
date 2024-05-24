@@ -7,7 +7,7 @@ from tqdm import tqdm
 def write_result(path, content):
     with open(path, 'w') as f:
         for el in content:
-            f.write(el + '\n')
+            f.write(str(el) + '\n')
 
 
 def main():
@@ -33,7 +33,7 @@ def main():
     total_time_cost = []
     img_list = glob.glob(os.path.join('VisDrone2019-DET-train-large', 'images', '*.jpg'))
     annotation_list = glob.glob(os.path.join('VisDrone2019-DET-train-large', 'annotations', '*.txt'))
-    for img, annotation in tqdm(zip(img_list[:1], annotation_list[:1]), total=len(img_list[:1])):
+    for img, annotation in tqdm(zip(img_list[1508:], annotation_list[1508:]), total=len(img_list[1508:])):
         gt_coverage, sub_regions, asosr_score, time_cost, score_of_sub_regions = focus(img, annotation,
             segment_resize_scale=segment_resize_scale,
             ss_scale=ss_scale,

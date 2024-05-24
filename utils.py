@@ -182,6 +182,8 @@ def intersect_perc_xywh_tuple(a, b):
 def intersect_perc_xyxy_dict(a, b):
     # perc of b inside a
     areaB = (b['max_x'] - b['min_x']) * (b['max_y'] - b['min_y'])
+    if areaB == 0:
+        return 0
     xA = max(a['min_x'], b['min_x'])
     yA = max(a['min_y'], b['min_y'])
     xB = min(a['max_x'], b['max_x'])

@@ -1,4 +1,4 @@
-from selectivesearch.selectivesearch.selectivesearch import selective_search
+from selectivesearch_Detect.selectivesearch.selectivesearch import selective_search
 from VisDrone import VisDrone
 import skimage.data
 import matplotlib.pyplot as plt
