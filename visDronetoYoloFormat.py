@@ -11,7 +11,7 @@ if __name__ == '__main__':
     image_list = glob.glob(os.path.join('images_2000_1500', '*.jpg'))
     annotations_list.sort()
     image_list.sort()
-    """
+    
     for image, annotations_txt in tqdm(zip(image_list, annotations_list)):
         img = cv2.imread(image)
         h, w = img.shape[:2]
@@ -25,7 +25,7 @@ if __name__ == '__main__':
                 bbox_left, bbox_top, bbox_width, bbox_height = [int(item) for item in [bbox_left, bbox_top, bbox_width, bbox_height]]
                 bbox_center = ((bbox_left + bbox_width / 2) / w, (bbox_top + bbox_height / 2) / h)
                 f2.write(f'{category} {bbox_center[0]:.6f} {bbox_center[1]:.6f} {bbox_width / w:.6f} {bbox_height / h:.6f}\n')
-    """
+    
     #    0: pedestrian
     #    1: people
     #    2: bicycle
@@ -39,7 +39,8 @@ if __name__ == '__main__':
     #   10: others
     data = {
         'names': ['pedestrain', 'people', 'bicycle', 'car', 'van', 'truck', 'tricycle', 'awning-tricycle', 'bus', 'motor', 'others'],
-        'nc': 11,
+        'nc': 12,
+        'path': '/content/',
         'test': '',
         'train': '',
         'val': '',
