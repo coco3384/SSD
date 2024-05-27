@@ -18,7 +18,10 @@ def ASoSR(sub_regions, annotations):
             if contain(sub_region, annotation_bbox):
                 score_of_sub_regions[sub_region] = score_of_sub_regions[sub_region] + 1
 
-    asosr = sum(score_of_sub_regions.values()) / len(score_of_sub_regions)
+    if len(score_of_sub_regions) != 0:
+        asosr = sum(score_of_sub_regions.values()) / len(score_of_sub_regions)
+    else:
+        asosr = 0
     
     return asosr, score_of_sub_regions
 
