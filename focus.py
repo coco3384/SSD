@@ -23,16 +23,20 @@ def main():
     border = 10
     intersect_score_threshold = 0.7
 
-    sub_regions_img_dir = 'sub_images_test(large)'
-    sub_regions_annotation_dir = 'sub_annotations_test(large)'
+    sub_regions_img_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'images')
+    sub_regions_annotation_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'annotations')
     os.makedirs(sub_regions_img_dir, exist_ok=True)
     os.makedirs(sub_regions_annotation_dir, exist_ok=True)
 
     total_gt_coverage = []
     total_asosr_score = []
     total_time_cost = []
-    img_list = glob.glob(os.path.join('VisDrone2019-DET-test-large', 'images', '*.jpg'))
-    annotation_list = glob.glob(os.path.join('VisDrone2019-DET-test-large', 'annotations', '*.txt'))
+    img_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'images', '*.jpg'))
+    annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'annotations', '*.txt'))
+    img_list.sort()
+    annotation_list.sort()
+    # img_list = ['0000073_00377_d_0000001.jpg']
+    # annotation_list = ['0000073_00377_d_0000001.txt']
     for img, annotation in tqdm(zip(img_list, annotation_list), total=len(img_list)):
         gt_coverage, sub_regions, asosr_score, time_cost, score_of_sub_regions = focus(img, annotation,
             segment_resize_scale=segment_resize_scale,
@@ -53,9 +57,9 @@ def main():
             sub_region.save(img_path=img_path, annotation_path=annotation_path)
 
     
-    # write_result('total_gt_coverage.txt', total_gt_coverage)
-    # write_result('total_asosr_score.txt', total_asosr_score)
-    # write_result('total_time_cost.txt', total_time_cost)
+    write_result(os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
+    write_result(os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'total_asosr_score.txt'), total_asosr_score)
+    write_result(os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'total_time_cost.txt'), total_time_cost)
 
 
 
