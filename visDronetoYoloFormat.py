@@ -4,13 +4,6 @@ from tqdm import tqdm
 import cv2
 import yaml
 
-<<<<<<< HEAD
-if __name__ == '__main__':
-    des_dir = os.path.join('dataset', 'large', 'sub_annotations_test(large)_yolo')
-    os.makedirs(des_dir, exist_ok=True)
-    annotations_list = glob.glob(os.path.join('dataset', 'large', 'sub_annotations_test(large)', '*.txt'))
-    image_list = glob.glob(os.path.join('dataset', 'large', 'sub_images_test(large)', '*.jpg'))
-=======
 def visDroneFormate2YoloFormat(save_yaml=True):
     des_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'visDrone2019-DET-test-large-sub-regions_yolo')
     os.makedirs(des_dir, exist_ok=True)
@@ -18,7 +11,6 @@ def visDroneFormate2YoloFormat(save_yaml=True):
     annotations_list = glob.glob(os.path.join('dataset', 'visDrone2019-DET-test-large-sub-regions', 'annotations', '*.txt'))
     image_list = glob.glob(os.path.join('dataset', 'visDrone2019-DET-test-large-sub-regions', 'images', '*.jpg'))
 
->>>>>>> bd3658ed37f70aab3db25c65b5e5cec82e38e29e
     annotations_list.sort()
     image_list.sort()
     
@@ -35,9 +27,6 @@ def visDroneFormate2YoloFormat(save_yaml=True):
                 bbox_left, bbox_top, bbox_width, bbox_height = [int(item) for item in [bbox_left, bbox_top, bbox_width, bbox_height]]
                 bbox_center = ((bbox_left + bbox_width / 2) / w, (bbox_top + bbox_height / 2) / h)
                 f2.write(f'{category} {bbox_center[0]:.6f} {bbox_center[1]:.6f} {bbox_width / w:.6f} {bbox_height / h:.6f}\n')
-<<<<<<< HEAD
-    
-=======
     
     #    0: pedestrian
     #    1: people
@@ -71,4 +60,3 @@ def main():
 
 if __name__ == '__main__':
     main()
->>>>>>> bd3658ed37f70aab3db25c65b5e5cec82e38e29e

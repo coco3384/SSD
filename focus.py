@@ -23,31 +23,20 @@ def main():
     border = 10
     intersect_score_threshold = 0.7
 
-<<<<<<< HEAD
-
-    sub_regions_img_dir = 'sub_images(small)'
-    sub_regions_annotation_dir = 'sub_annotations(small)'
-=======
     sub_regions_img_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'images')
     sub_regions_annotation_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'annotations')
->>>>>>> bd3658ed37f70aab3db25c65b5e5cec82e38e29e
     os.makedirs(sub_regions_img_dir, exist_ok=True)
     os.makedirs(sub_regions_annotation_dir, exist_ok=True)
 
     total_gt_coverage = []
     total_asosr_score = []
     total_time_cost = []
-<<<<<<< HEAD
-    img_list = glob.glob(os.path.join('VisDrone2019-DET-train-small', 'images', '*.jpg'))
-    annotation_list = glob.glob(os.path.join('VisDrone2019-DET-train-small', 'annotations', '*.txt'))
-=======
     img_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'images', '*.jpg'))
     annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'annotations', '*.txt'))
     img_list.sort()
     annotation_list.sort()
     # img_list = ['0000073_00377_d_0000001.jpg']
     # annotation_list = ['0000073_00377_d_0000001.txt']
->>>>>>> bd3658ed37f70aab3db25c65b5e5cec82e38e29e
     for img, annotation in tqdm(zip(img_list, annotation_list), total=len(img_list)):
         gt_coverage, sub_regions, asosr_score, time_cost, score_of_sub_regions = focus(img, annotation,
             segment_resize_scale=segment_resize_scale,
