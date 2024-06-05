@@ -9,8 +9,8 @@ def get_basename(path):
 
 
 if __name__ == '__main__':
-    annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'rebine_labels', '*.txt'))
-    predict_annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'labels', '*.txt'))
+    annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'labels_subRegion_yolo', '*.txt'))
+    predict_annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'labels_noSubRegion_yolo', '*.txt'))
     image_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'images', '*.jpg'))
     annotation_list.sort()
     predict_annotation_list.sort()

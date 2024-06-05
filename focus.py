@@ -1,6 +1,6 @@
 import os
 import glob
-from testSS import focus
+from modified_selective_search import focus
 from tqdm import tqdm
 
 
@@ -22,7 +22,7 @@ def main():
     # borders = [10]
     border = 10
     intersect_score_threshold = 0.7
-    phase = 'VisDrone2019-DET-test-large'
+    phase = 'VisDrone2019-DET-train-medium'
 
     sub_regions_img_dir = os.path.join('dataset', f'{phase}-sub-regions', 'images')
     sub_regions_annotation_dir = os.path.join('dataset', f'{phase}-sub-regions', 'annotations')

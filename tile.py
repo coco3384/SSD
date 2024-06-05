@@ -1,7 +1,7 @@
 import cv2
 from VisDrone import VisDrone
 from eval import ASoSR
-from testSS import main
+from modified_selective_search import main
 
 
 def effectivness_of_sub_regions(score_of_sub_regions):

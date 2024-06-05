@@ -70,8 +70,6 @@ def apply_nms(annotation_path, origin_shape):
                 f.write(f'{cls} {bbox[0]} {bbox[1]} {bbox[2]} {bbox[3]} {conf}\n')
     
 
-
-
 def get_image_name_and_position(sub_region_name):
     base_name = os.path.basename(sub_region_name)
     position = base_name.split('_')[-2:]
