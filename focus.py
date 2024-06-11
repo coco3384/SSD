@@ -1,6 +1,6 @@
 import os
 import glob
-from testSS import focus
+from modified_selective_search import focus
 from tqdm import tqdm
 
 
@@ -22,21 +22,24 @@ def main():
     # borders = [10]
     border = 10
     intersect_score_threshold = 0.7
+    phase = 'VisDrone2019-DET-test-medium'
 
-    sub_regions_img_dir = os.path.join('dataset', 'VisDrone2019-DET-train-large3-sub-regions', 'images')
-    sub_regions_annotation_dir = os.path.join('dataset', 'VisDrone2019-DET-train-large3-sub-regions', 'annotations')
+    sub_regions_img_dir = os.path.join('dataset', f'{phase}-sub-regions', 'images')
+    sub_regions_annotation_dir = os.path.join('dataset', f'{phase}-sub-regions', 'annotations')
     os.makedirs(sub_regions_img_dir, exist_ok=True)
     os.makedirs(sub_regions_annotation_dir, exist_ok=True)
 
     total_gt_coverage = []
     total_asosr_score = []
     total_time_cost = []
-    img_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-train-large', 'images', '*.jpg'))
-    annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-train-large', 'annotations', '*.txt'))
+    
+    img_list = glob.glob(os.path.join('dataset', phase, 'images', '*.jpg'))
+    annotation_list = glob.glob(os.path.join('dataset', phase, 'annotations', '*.txt'))
     img_list.sort()
     annotation_list.sort()
     # img_list = ['0000073_00377_d_0000001.jpg']
     # annotation_list = ['0000073_00377_d_0000001.txt']
+
     for img, annotation in tqdm(zip(img_list, annotation_list), total=len(img_list)):
         try:
             gt_coverage, sub_regions, asosr_score, time_cost, score_of_sub_regions = focus(img, annotation,
@@ -59,10 +62,10 @@ def main():
         except:
             break
 
-    
-    write_result(os.path.join('dataset', 'VisDrone2019-DET-train-large3-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
-    write_result(os.path.join('dataset', 'VisDrone2019-DET-train-large3-sub-regions', 'total_asosr_score.txt'), total_asosr_score)
-    write_result(os.path.join('dataset', 'VisDrone2019-DET-train-large3-sub-regions', 'total_time_cost.txt'), total_time_cost)
+
+    write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
+    write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_asosr_score.txt'), total_asosr_score)
+    write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_time_cost.txt'), total_time_cost)
 
 
 

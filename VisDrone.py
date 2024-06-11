@@ -3,6 +3,7 @@ import numpy as np
 import VisDroneAnnotation
 from typing import Tuple
 
+
 class VisDrone:
     def __init__(self, image, annotations, name=None, line_width=2):
         # annotations: plent read from VisDrone Annotations
@@ -31,7 +32,6 @@ class VisDrone:
         self.shape = self.im.shape
 
     def resize(self, wh: Tuple[int, int]):
-        ori_im = self.im
         resize_im = cv2.resize(self.im, wh)
         wh_scale = (wh[0] / self.im.shape[1], wh[1] / self.im.shape[0])
         resize_annotations = self.annotations.resize(wh_scale)
