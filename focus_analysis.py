@@ -64,11 +64,11 @@ def gt_covergage_analysis(file_path):
 
 def main():
     # asosr = analysis(file_path=os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'total_asosr_score.txt'))
-    sub_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-medium-sub-regions')
+    sub_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-large3-sub-regions')
     base_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-medium')
 
     gt_coverage = gt_covergage_analysis(file_path=os.path.join(sub_dataset, 'total_gt_coverage.txt'))
-    time = time_analysis(file_path=os.path.join(sub_dataset, 'total_time_cost.txt'))
+    # time = time_analysis(file_path=os.path.join(sub_dataset, 'total_time_cost.txt'))
     
     image_list = glob.glob(os.path.join(base_dataset, 'images', '*.jpg'))
     image_list.sort()
