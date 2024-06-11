@@ -22,7 +22,7 @@ def main():
     # borders = [10]
     border = 10
     intersect_score_threshold = 0.7
-    phase = 'VisDrone2019-DET-train-medium'
+    phase = 'VisDrone2019-DET-test-medium'
 
     sub_regions_img_dir = os.path.join('dataset', f'{phase}-sub-regions', 'images')
     sub_regions_annotation_dir = os.path.join('dataset', f'{phase}-sub-regions', 'annotations')
@@ -59,7 +59,7 @@ def main():
             annotation_path = os.path.join(sub_regions_annotation_dir, name + f'_{xy[0]}_{xy[1]}.txt')
             sub_region.save(img_path=img_path, annotation_path=annotation_path)
 
-    
+
     write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
     write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_asosr_score.txt'), total_asosr_score)
     write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_time_cost.txt'), total_time_cost)

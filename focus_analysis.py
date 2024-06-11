@@ -64,18 +64,29 @@ def gt_covergage_analysis(file_path):
 
 def main():
     # asosr = analysis(file_path=os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'total_asosr_score.txt'))
-    gt_coverage = gt_covergage_analysis(file_path=os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'total_gt_coverage.txt'))
-    time = time_analysis(file_path=os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'total_time_cost.txt'))
-    
-    image_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'images', '*.jpg'))
-    # ground truth
-    annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-large', 'annotations', '*.txt'))
+    sub_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-medium-sub-regions')
+    base_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-medium')
 
+    gt_coverage = gt_covergage_analysis(file_path=os.path.join(sub_dataset, 'total_gt_coverage.txt'))
+    time = time_analysis(file_path=os.path.join(sub_dataset, 'total_time_cost.txt'))
     
+    image_list = glob.glob(os.path.join(base_dataset, 'images', '*.jpg'))
     image_list.sort()
+    
+    for image_path in image_list:
+        image = cv2.imread(image_path)
+        name = os.path.basename(image_path).split('.')[0]
+        sub_regions_list = glob.glob(os.path.join(sub_dataset, 'images', f'{name}*.jpg'))
+
+        for sub_region in sub_regions_list:
+            image = overlay_with_sub_region(image, sub_region)
+        
+        cv2.imshow('the lowest ground truth coverage image', image)
+        cv2.waitKey(0)
+    """
     min_gt_coverage_img = cv2.imread(image_list[gt_coverage['argmin']])
     name = os.path.basename(image_list[gt_coverage['argmin']]).split('.')[0]
-    sub_regions_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DEt-test-large-sub-regions', 'images', f'{name}*.jpg'))
+    sub_regions_list = glob.glob(os.path.join(sub_dataset, 'images', f'{name}*.jpg'))
 
     for sub_region in sub_regions_list:
         min_gt_coverage_img = overlay_with_sub_region(min_gt_coverage_img, sub_region)
@@ -83,6 +94,7 @@ def main():
     cv2.imshow('the lowest ground truth coverage image', min_gt_coverage_img)
     cv2.waitKey(0)
     print('done!')
-
+    """
+    
 if __name__ == '__main__':
     main()

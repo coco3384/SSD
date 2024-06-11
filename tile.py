@@ -4,6 +4,7 @@ from eval import ASoSR
 from modified_selective_search import main
 
 
+
 def effectivness_of_sub_regions(score_of_sub_regions):
     total_score = 0
     for score in score_of_sub_regions.values():
