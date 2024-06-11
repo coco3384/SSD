@@ -4,12 +4,8 @@ from tqdm import tqdm
 import cv2
 import yaml
 
-def visDroneFormate2YoloFormat(save_yaml=True):
-    des_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'visDrone2019-DET-test-large-sub-regions_yolo')
+def visDroneFormate2YoloFormat(des_dir, annotations_list, image_list, save_yaml=True):
     os.makedirs(des_dir, exist_ok=True)
-
-    annotations_list = glob.glob(os.path.join('dataset', 'visDrone2019-DET-test-large-sub-regions', 'annotations', '*.txt'))
-    image_list = glob.glob(os.path.join('dataset', 'visDrone2019-DET-test-large-sub-regions', 'images', '*.jpg'))
 
     annotations_list.sort()
     image_list.sort()
@@ -27,22 +23,21 @@ def visDroneFormate2YoloFormat(save_yaml=True):
                 bbox_left, bbox_top, bbox_width, bbox_height = [int(item) for item in [bbox_left, bbox_top, bbox_width, bbox_height]]
                 bbox_center = ((bbox_left + bbox_width / 2) / w, (bbox_top + bbox_height / 2) / h)
                 f2.write(f'{category} {bbox_center[0]:.6f} {bbox_center[1]:.6f} {bbox_width / w:.6f} {bbox_height / h:.6f}\n')
-    
-    #    0: pedestrian
-    #    1: people
-    #    2: bicycle
-    #    3: car
-    #    4: van
-    #    5: truck
-    #    6: tricycle
-    #    7: awning-tricycle
-    #    8: bus
-    #    9: motor      
-    #   10: others
-    #   11: others2(not in script)
+    #    0: ignore regions
+    #    1: pedestrian
+    #    2: people
+    #    3: bicycle
+    #    4: car
+    #    5: van
+    #    6: truck
+    #    7: tricycle
+    #    8: awning-tricycle
+    #    9: bus
+    #   10: motor      
+    #   11: others
     if save_yaml:
         data = {
-            'names': ['pedestrain', 'people', 'bicycle', 'car', 'van', 'truck', 'tricycle', 'awning-tricycle', 'bus', 'motor', 'others'],
+            'names': ['ignore regions', 'pedestrain', 'people', 'bicycle', 'car', 'van', 'truck', 'tricycle', 'awning-tricycle', 'bus', 'motor', 'others'],
             'nc': 12,
             'path': '/content/',
             'test': '',
@@ -54,7 +49,10 @@ def visDroneFormate2YoloFormat(save_yaml=True):
             yaml.dump(data, f)
 
 def main():
-    visDroneFormate2YoloFormat(save_yaml=False)
+    des_dir = os.path.join('dataset', 'VisDrone2019-DET-train-medium-sub-regions', 'VisDrone2019-DET-train-medium-sub-regions_yolo')
+    annotations_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-train-medium-sub-regions', 'annotations', '*.txt'))
+    image_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-train-medium-sub-regions', 'images', '*.jpg'))
+    visDroneFormate2YoloFormat(des_dir, annotations_list, image_list, save_yaml=False)
 
 
 
