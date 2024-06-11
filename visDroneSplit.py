@@ -25,8 +25,8 @@ def main():
     medium_data = {'images': [], 'annotations': []}
     large_data = {'images': [], 'annotations': []}
 
-    img_list = glob.glob(os.path.join('VisDrone2019-DET-test-dev', 'images', '*.jpg'))
-    annotation_list = glob.glob(os.path.join('VisDrone2019-DET-test-dev', 'annotations', '*.txt'))
+    img_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-train', 'images', '*.jpg'))
+    annotation_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-train', 'annotations', '*.txt'))
     img_list.sort()
     annotation_list.sort()
 
@@ -43,9 +43,9 @@ def main():
             large_data['images'].append(img)
             large_data['annotations'].append(annotation)
     
-    create_dataset(name='VisDrone2019-DET-test-small', data=small_data)
-    create_dataset(name='VisDrone2019-DET-test-medium', data=medium_data)
-    create_dataset(name='VisDrone2019-DET-test-large', data=large_data)
+    create_dataset(name='VisDrone2019-DET-train-small', data=small_data)
+    create_dataset(name='VisDrone2019-DET-train-medium', data=medium_data)
+    create_dataset(name='VisDrone2019-DET-train-large', data=large_data)
 
 
 if __name__ == '__main__':
