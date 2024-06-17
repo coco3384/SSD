@@ -30,6 +30,8 @@ class VisDrone:
         self.annotations = VisDroneAnnotation.VisDroneAnnotations(content)
         self.line_width = line_width
         self.shape = self.im.shape
+        self.randomseed = 0
+        np.random.seed(self.randomseed)
 
     def resize(self, wh: Tuple[int, int]):
         resize_im = cv2.resize(self.im, wh)
@@ -53,22 +55,21 @@ class VisDrone:
                         (annotation.bbox_left, annotation.bbox_top),
                         (annotation.bbox_right, annotation.bbox_bottom),
                         colors[int(annotation.category)].tolist(), self.line_width)
-            """
-            cv2.rectangle(baseImage,
-                          (annotation.bbox_left, annotation.bbox_top - 40),
-                          (annotation.bbox_left + int(annotation.bbox_width / 4), annotation.bbox_top),
-                          colors[int(annotation.category)].tolist(), -1
-                          )
-            cv2.putText(baseImage, annotation.category, 
-                        (annotation.bbox_left, annotation.bbox_top - 20), 
-                        1,
-                        cv2.FONT_HERSHEY_SIMPLEX, 
-                        (255, 255, 255), 
-                        2, 
-                        cv2.LINE_AA
-                        )
+            text = str(annotation.category)
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            font_scale = 0.5
+            color = (255, 255, 255)
+            thickness = 2
+            text_size = cv2.getTextSize(text, font, font_scale, thickness)[0]
+            text_x = annotation.bbox_left + annotation.bbox_width // 2 - text_size[0] // 2
+            text_y = annotation.bbox_top - 10  # 10 pixels above the top of the bbox
 
-            """
+            # 如果文本位置超出图像上边界，可以调整位置
+            if text_y < 0:
+                text_y = annotation.bbox_top + annotation.bbox_height + 20  # Place the text below the bbox if not enough space above
+
+            cv2.putText(baseImage, text, (text_x, text_y), font, font_scale, color, thickness)
+
         return baseImage
     
     def __draw_annot_onebyone(self, i):
@@ -110,11 +111,13 @@ class VisDrone:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     
-    def show_annotations(self):
+    def show_annotations(self, show=True):
         img_with_annot = self.__draw_annot()
-        cv2.imshow('image with annotations', img_with_annot)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        if show:
+            cv2.imshow('image with annotations', img_with_annot)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+        return img_with_annot
     
     def show_annotaions_onebyone(self):
         for i in range(len(self.annotations)):

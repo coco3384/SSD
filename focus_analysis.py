@@ -2,6 +2,7 @@ import os
 import numpy as np
 import glob
 import cv2
+from VisDrone import VisDrone
 
 def overlay_with_sub_region(image: np.array, sub_region: str):
     # image: cv2 image (np.array)
@@ -22,6 +23,8 @@ def overlay_with_sub_region(image: np.array, sub_region: str):
     return output
 
 
+
+
 def get_image_name_and_position(sub_region_name):
     base_name = os.path.basename(sub_region_name)
     position = base_name.split('_')[-2:]
@@ -40,7 +43,7 @@ def time_analysis(file_path):
 
     return sum([float(c) for c in content])
 
-def gt_covergage_analysis(file_path):
+def analysis(file_path):
     with open(file_path, 'r') as f:
         content = f.readlines()
     
@@ -63,38 +66,43 @@ def gt_covergage_analysis(file_path):
 
 
 def main():
-    # asosr = analysis(file_path=os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'total_asosr_score.txt'))
-    sub_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-large3-sub-regions')
-    base_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-medium')
+    show_every = False
 
-    gt_coverage = gt_covergage_analysis(file_path=os.path.join(sub_dataset, 'total_gt_coverage.txt'))
-    # time = time_analysis(file_path=os.path.join(sub_dataset, 'total_time_cost.txt'))
+    sub_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-large2-sub-regions')
+    base_datset = os.path.join('dataset', 'VisDrone2019-DET-train-large')
     
-    image_list = glob.glob(os.path.join(base_dataset, 'images', '*.jpg'))
+    gt_coverage = analysis(file_path=os.path.join(sub_dataset, 'total_gt_coverage.txt'))
+    time = time_analysis(file_path=os.path.join(sub_dataset, 'total_time_cost.txt'))
+    asosr = analysis(file_path=os.path.join(sub_dataset, 'total_asosr_score.txt'))
+    
+    image_list = glob.glob(os.path.join(base_datset, 'images', '*.jpg'))
+    annotation_list = glob.glob(os.path.join(base_datset, 'annotations', '*.txt'))
+    
     image_list.sort()
-    
-    for image_path in image_list:
-        image = cv2.imread(image_path)
-        name = os.path.basename(image_path).split('.')[0]
-        sub_regions_list = glob.glob(os.path.join(sub_dataset, 'images', f'{name}*.jpg'))
+    annotation_list.sort()
 
-        for sub_region in sub_regions_list:
-            image = overlay_with_sub_region(image, sub_region)
-        
-        cv2.imshow('the lowest ground truth coverage image', image)
-        cv2.waitKey(0)
-    """
-    min_gt_coverage_img = cv2.imread(image_list[gt_coverage['argmin']])
+    if show_every:
+        for image_path in image_list:
+            image = cv2.imread(image_path)
+            name = os.path.basename(image_path).split('.')[0]
+            sub_regions_list = glob.glob(os.path.join(sub_dataset), 'images', f'{name}*.jpg')
+
+            for sub_region in sub_regions_list:
+                image = overlay_with_sub_region(image, sub_region)
+
+    min_gt_coverage_img = image_list[gt_coverage['argmin']]
+    min_gt_coverage_annotation = annotation_list[gt_coverage['argmin']]
+    min_gt_coverage_data = VisDrone(min_gt_coverage_img, min_gt_coverage_annotation)
+    min_gt_sample = min_gt_coverage_data.show_annotations(show=False)
     name = os.path.basename(image_list[gt_coverage['argmin']]).split('.')[0]
     sub_regions_list = glob.glob(os.path.join(sub_dataset, 'images', f'{name}*.jpg'))
 
     for sub_region in sub_regions_list:
-        min_gt_coverage_img = overlay_with_sub_region(min_gt_coverage_img, sub_region)
+        min_gt_sample = overlay_with_sub_region(min_gt_sample, sub_region)
     
-    cv2.imshow('the lowest ground truth coverage image', min_gt_coverage_img)
+    cv2.imshow('the lowest ground truth coverage image', min_gt_sample)
     cv2.waitKey(0)
     print('done!')
-    """
-    
+
 if __name__ == '__main__':
     main()

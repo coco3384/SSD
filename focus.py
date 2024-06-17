@@ -14,21 +14,22 @@ def main():
     segment_resize_scale = 0.4
     # for ss_scale 500 is the best
     # ss_scales = [100, 200, 300, 400, 500]
-    ss_scale = 250
+    ss_scale = 300
     # for prefered_size 1024 is the best
-    # prefered_sizes = [224, 416, 512, 640, 1024]
+    # prefered_sizes = [224, 412, 512, 640, 1024]
     prefered_size = 640
     # for border 50 is the best
     # borders = [10]
     border = 10
     intersect_score_threshold = 0.7
-    phase = 'VisDrone2019-DET-test-medium'
+    phase = 'VisDrone2019-DET-train-large'
 
-    sub_regions_img_dir = os.path.join('dataset', f'{phase}-sub-regions', 'images')
-    sub_regions_annotation_dir = os.path.join('dataset', f'{phase}-sub-regions', 'annotations')
+    
+    sub_regions_img_dir = os.path.join('dataset', f'{phase}4-sub-regions', 'images')
+    sub_regions_annotation_dir = os.path.join('dataset', f'{phase}5-sub-regions', 'annotations')
     os.makedirs(sub_regions_img_dir, exist_ok=True)
     os.makedirs(sub_regions_annotation_dir, exist_ok=True)
-
+    
     total_gt_coverage = []
     total_asosr_score = []
     total_time_cost = []
@@ -60,12 +61,15 @@ def main():
                 annotation_path = os.path.join(sub_regions_annotation_dir, name + f'_{xy[0]}_{xy[1]}.txt')
                 sub_region.save(img_path=img_path, annotation_path=annotation_path)
         except:
-            break
+            write_result(os.path.join('dataset', f'{phase}5-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
+            write_result(os.path.join('dataset', f'{phase}5-sub-regions', 'total_asosr_score.txt'), total_asosr_score)
+            write_result(os.path.join('dataset', f'{phase}5-sub-regions', 'total_time_cost.txt'), total_time_cost)
+            print('accidently quit!')
 
-
-    write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
-    write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_asosr_score.txt'), total_asosr_score)
-    write_result(os.path.join('dataset', f'{phase}-sub-regions', 'total_time_cost.txt'), total_time_cost)
+    
+    write_result(os.path.join('dataset', f'{phase}5-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
+    write_result(os.path.join('dataset', f'{phase}5-sub-regions', 'total_asosr_score.txt'), total_asosr_score)
+    write_result(os.path.join('dataset', f'{phase}5-sub-regions', 'total_time_cost.txt'), total_time_cost)
 
 
 
