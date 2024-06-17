@@ -4,7 +4,7 @@ from tqdm import tqdm
 import cv2
 import yaml
 
-def visDroneFormate2YoloFormat(des_dir, annotations_list, image_list, save_yaml=True):
+def visDroneFormate2YoloFormat(des_dir, annotations_list, image_list):
     os.makedirs(des_dir, exist_ok=True)
 
     annotations_list.sort()
@@ -35,24 +35,13 @@ def visDroneFormate2YoloFormat(des_dir, annotations_list, image_list, save_yaml=
     #    9: bus
     #   10: motor      
     #   11: others
-    if save_yaml:
-        data = {
-            'names': ['ignore regions', 'pedestrain', 'people', 'bicycle', 'car', 'van', 'truck', 'tricycle', 'awning-tricycle', 'bus', 'motor', 'others'],
-            'nc': 12,
-            'path': '/content/',
-            'test': '',
-            'train': '',
-            'val': '',
 
-        }      
-        with open(os.path.join(des_dir, 'data.yaml'), 'w') as f:
-            yaml.dump(data, f)
 
 def main():
-    des_dir = os.path.join('dataset', 'VisDrone2019-DET-train-medium-sub-regions', 'VisDrone2019-DET-train-medium-sub-regions_yolo')
-    annotations_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-train-medium-sub-regions', 'annotations', '*.txt'))
-    image_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-train-medium-sub-regions', 'images', '*.jpg'))
-    visDroneFormate2YoloFormat(des_dir, annotations_list, image_list, save_yaml=False)
+    des_dir = os.path.join('dataset', 'VisDrone2019-DET-test-medium-sub-regions', 'labels')
+    annotations_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-medium-sub-regions', 'annotations', '*.txt'))
+    image_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-medium-sub-regions', 'images', '*.jpg'))
+    visDroneFormate2YoloFormat(des_dir, annotations_list, image_list)
 
 
 
