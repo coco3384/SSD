@@ -68,7 +68,7 @@ def analysis(file_path):
 def main():
     show_every = False
 
-    sub_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-large2-sub-regions')
+    sub_dataset = os.path.join('dataset', 'VisDrone2019-DET-train-large8-sub-regions')
     base_datset = os.path.join('dataset', 'VisDrone2019-DET-train-large')
     
     gt_coverage = analysis(file_path=os.path.join(sub_dataset, 'total_gt_coverage.txt'))
