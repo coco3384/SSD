@@ -38,9 +38,9 @@ def visDroneFormate2YoloFormat(des_dir, annotations_list, image_list):
 
 
 def main():
-    des_dir = os.path.join('dataset', 'VisDrone2019-DET-test-medium-sub-regions', 'labels')
-    annotations_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-medium-sub-regions', 'annotations', '*.txt'))
-    image_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-medium-sub-regions', 'images', '*.jpg'))
+    des_dir = os.path.join('dataset', 'VisDrone2019-DET-test-medium', 'labels')
+    annotations_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-medium', 'annotations', '*.txt'))
+    image_list = glob.glob(os.path.join('dataset', 'VisDrone2019-DET-test-medium', 'images', '*.jpg'))
     visDroneFormate2YoloFormat(des_dir, annotations_list, image_list)
 
 

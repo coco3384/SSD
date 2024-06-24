@@ -84,12 +84,12 @@ def get_image_name_and_position(sub_region_name):
 
 
 def main():
-    rebine_result_path = os.path.join('dataset', 'VisDrone2019-DET-test-large', 'rebine_labels')
+    rebine_result_path = os.path.join('dataset', 'VisDrone2019-DET-test-large', 'labels_tile')
     os.makedirs(rebine_result_path, exist_ok=True)
 
     origin_image_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large', 'images')
-    sub_regions_image_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'images')
-    sub_regions_annotation_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-sub-regions', 'labels')
+    sub_regions_image_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-tile-sub-regions', 'images')
+    sub_regions_annotation_dir = os.path.join('dataset', 'VisDrone2019-DET-test-large-tile-sub-regions', 'predict_labels')
 
     sub_regions_annotation_list = glob.glob(os.path.join(sub_regions_annotation_dir, '*.txt'))
     sub_regions_image_list = glob.glob(os.path.join(sub_regions_image_dir, '*.jpg'))

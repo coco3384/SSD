@@ -10,7 +10,7 @@ from focus import write_result
 
 if __name__ == '__main__':
 
-    phase = 'VisDrone2019-DET-train-large'
+    phase = 'VisDrone2019-DET-test-large'
     
     sub_regions_img_dir = os.path.join('dataset', f'{phase}-tile-sub-regions', 'images')
     sub_regions_annotation_dir = os.path.join('dataset', f'{phase}-tile-sub-regions', 'annotations')
@@ -57,8 +57,8 @@ if __name__ == '__main__':
             annotation_path = os.path.join(sub_regions_annotation_dir, name + f'_{xy[0]}_{xy[1]}.txt')
             sub_region.save(img_path=img_path, annotation_path=annotation_path)
 
-        write_result(os.path.join('dataset', f'{phase}-tile_sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
-        write_result(os.path.join('dataset', f'{phase}-tile_sub-regions', 'total_asosr_score.txt'), total_asosr_score)
+        write_result(os.path.join('dataset', f'{phase}-tile-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
+        write_result(os.path.join('dataset', f'{phase}-tile-sub-regions', 'total_asosr_score.txt'), total_asosr_score)
         
 
         

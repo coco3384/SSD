@@ -20,7 +20,7 @@ def main():
     prefered_size = 640
     # for border 50 is the best
     # borders = [10]
-    border = 10
+    border = 50
     intersect_score_threshold = 0.7
     phase = 'VisDrone2019-DET-train-large'
 
@@ -56,10 +56,11 @@ def main():
             total_time_cost.append(time_cost)
             name = os.path.basename(img).split('.')[0]
 
-            for xy, sub_region in list(sub_regions.items()):
-                img_path = os.path.join(sub_regions_img_dir, name + f'_{xy[0]}_{xy[1]}.jpg')
-                annotation_path = os.path.join(sub_regions_annotation_dir, name + f'_{xy[0]}_{xy[1]}.txt')
-                sub_region.save(img_path=img_path, annotation_path=annotation_path)
+            for i, (xy, sub_region) in enumerate(list(sub_regions.items())):
+                if list(score_of_sub_regions.values())[i] > asosr_score:
+                    img_path = os.path.join(sub_regions_img_dir, name + f'_{xy[0]}_{xy[1]}.jpg')
+                    annotation_path = os.path.join(sub_regions_annotation_dir, name + f'_{xy[0]}_{xy[1]}.txt')
+                    sub_region.save(img_path=img_path, annotation_path=annotation_path)
         except:
             write_result(os.path.join('dataset', f'{phase}9-sub-regions', 'total_gt_coverage.txt'), total_gt_coverage)
             write_result(os.path.join('dataset', f'{phase}9-sub-regions', 'total_asosr_score.txt'), total_asosr_score)

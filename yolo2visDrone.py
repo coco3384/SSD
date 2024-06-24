@@ -8,10 +8,10 @@ def get_basename(path):
 
 def main():
     dir = os.path.join('dataset', 'VisDrone2019-DET-test-large')
-    save_dir = os.path.join(dir, 'baseline_visDrone_labels')
+    save_dir = os.path.join(dir, 'labels_tile')
     os.makedirs(save_dir, exist_ok=True)
     image_dir = os.path.join(dir, 'images')
-    annotation_dir = os.path.join(dir, 'labels')
+    annotation_dir = os.path.join(dir, 'labels_tile_yolo')
 
     image_list = glob.glob(os.path.join(image_dir, '*.jpg'))
     annotation_list = glob.glob(os.path.join(annotation_dir, '*.txt'))
